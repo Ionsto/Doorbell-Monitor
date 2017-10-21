@@ -1,0 +1,10 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (PC monitor.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
+main.cpp(47): warning C4101: 'err': unreferenced local variable
+     Creating library C:\Users\samsu\Documents\Arduino\Doorbell Monitor\Release\PC Doorbell monitor.lib and object C:\Users\samsu\Documents\Arduino\Doorbell Monitor\Release\PC Doorbell monitor.exp
+  Generating code
+  1 of 20 functions ( 5.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    7 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  PC monitor.vcxproj -> C:\Users\samsu\Documents\Arduino\Doorbell Monitor\Release\PC Doorbell monitor.exe
