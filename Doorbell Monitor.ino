@@ -8,23 +8,45 @@ uint32_t TimerStart = 0;
 uint32_t TimerMax = 5000;
 bool DoorBellOn = false;
 uint8_t PINSTATE = 0;
-uint8_t buffer[1500];
-uint32_t OnThreshold = 200;
+uint8_t CountAboveThreshold = 0;
+uint32_t OnThreshold = 400;
 void UpdateDetector()
 {
 	uint32_t SumVal = 0;
-	for (int i = 0; i < 2048; ++i)
+	for (int i = 0; i < 4096; ++i)
 	{
-		SumVal += analogRead(0);
+		int val = analogRead(0);
+		SumVal += val;
 	}
 	SumVal >>= 11;
 	//Serial.println(SumVal);
 	if (SumVal > OnThreshold)
 	{
-		DoorBellOn = true;
-		TimerStart = millis();
-		Serial.println("Doorbell!");
+		CountAboveThreshold += 1;
 	}
+	else
+	{
+		//It's around 4/5 seconds
+		if (abs(CountAboveThreshold - 5) < 2)
+		{
+			DoorBellOn = true;
+			TimerStart = millis();
+			Serial.print("Doorbell!");
+			Serial.println(SumVal);
+		}
+		CountAboveThreshold = 0;
+	}
+}
+void Logger()
+{
+	uint32_t SumVal = 0;
+	for (int i = 0; i < 4096; ++i)
+	{
+		int val = analogRead(0);
+		SumVal += val;
+	}
+	SumVal >>= 11;
+	Serial.println(SumVal);
 }
 void UpdateLED()
 {
@@ -43,7 +65,6 @@ void UpdateLED()
 }
 void loop()
 {
-	///13mhz
 	if (DoorBellOn)
 	{
 		UpdateLED();
@@ -51,5 +72,6 @@ void loop()
 	else
 	{
 		UpdateDetector();
+		//Logger();
 	}
 }
